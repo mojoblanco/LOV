@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class LOVSeeder extends Seeder
+{
+    public function run()
+    {
+        $models = config('lov.models');
+        
+        $cat = $models['lov_category']::create([
+            'name' => 'Gender',
+            'description' => 'Specifies gender of a user',
+        ]);
+        
+
+        $values = [
+            [
+                'category_id' => $cat->id,
+                'value' => 'male',
+                'label' => 'Male',
+            ],
+            [
+                'category_id' => $cat->id,
+                'value' => 'female',
+                'label' => 'Female',
+            ]
+        ];
+
+        foreach ($values as $value) {
+            $models['lov']::create($value);
+        }
+
+    }
+}

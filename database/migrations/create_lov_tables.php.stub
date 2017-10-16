@@ -1,0 +1,31 @@
+<?php 
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+class CreateLOVTables extends Migration
+{
+    public function up()
+    {
+        $tableNames = config('lov.table_names');
+
+        Schema::create($tableNames['categories'], function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create($tableNames['values'], function (Blueprint $table) use($tableNames) {
+            $table->increments('id');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on($tableNames['categories'])->cascade('onDelete');
+            $table->string('value');
+            $table->string('label');
+            $table->string('description')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
+        });
+    }
+}
