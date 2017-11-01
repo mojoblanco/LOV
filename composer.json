@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mojoblanco\\Lov\\": "src"
+            "Mojoblanco\\LOV\\": "src"
         }
     },
     "config": {
